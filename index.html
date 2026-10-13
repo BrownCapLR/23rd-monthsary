@@ -218,7 +218,7 @@
         <button class="music-toggle" id="musicToggle" type="button" aria-label="Play background music" disabled>▶</button>
         <div class="music-info">
           <span class="music-label">A song for us</span>
-          <span class="music-title" id="musicTitle">Add a song in “Make it yours”</span>
+          <span class="music-title" id="musicTitle">Our song</span>
         </div>
         <audio id="backgroundMusic" loop preload="auto"></audio>
       </section>
@@ -277,14 +277,15 @@
       date: "A little celebration of us · 23 months",
       signoff: "I love you so much, always",
       theme: "rose",
-      musicUrl: "",
-      musicTitle: "",
+      // Add your track at this path, or change this to its filename in media/.
+      musicUrl: "media/our-song.mp3",
+      musicTitle: "Our song",
       cards: [
         {
           title: "My first yet the only gift you receive directly form my craft",
           text: "This is one of my favorite moments as this was the only time i have manage to give you present directly from my crafts. It was not the best and the most expensive but this was the most memorable, i made you cry for this hehehe.\n\nThank you for truly appreciating and cherishing it i will never forget how you cry for those little things i had made.",
           caption: "One of my favorite little moments",
-          image: "/media/slide1.jpg",
+          image: "media/slide1.jpg",
           alt: "A couple sharing a warm, happy moment"
         },
         {
@@ -298,7 +299,7 @@
           title: "Here's to every next chapter",
           text: "I know that our relationship is far from perfect, we have our ups and downs, fights after fights, and a lot of misunderstandings. But I am so blessed to have you by my side, as you never give up on me. Instead, you always choose to resolve our problems and understand our situation. I know that you loved me, but my love for you is deeper, you are my first girl, and i hope that you'll be the last. I really want to bring back the smile and the joy you have in this image that was captured from the very first time that i gave you flowers, the flowers might be fake, but the joy in your eyes is real. I really want to have this version of you from this image once again. But i also understand that all that we have survived as a couple is part of maturing, and those chapters lead us to how mature we are now when dealing with problems. I really appreciate your love, and that will be irreplaceable.\n\nHappy monthsary, bing. This is my favorite story from all books that i have, and I can't wait to write the next pages of our book .",
           caption: "To all the memories still to come",
-          image: "media/slide3.jpg",
+          image: "media/slide3.jpg",    
           alt: "A family enjoying a sunny outdoor moment"
         }
       ]
@@ -333,7 +334,13 @@
         if (!parsed || !Array.isArray(parsed.cards) || parsed.cards.length !== defaultContent.cards.length) {
           throw new Error("Saved page data is not in the expected format.");
         }
-        return { ...structuredClone(defaultContent), ...parsed, cards: parsed.cards.map((card, index) => ({ ...defaultContent.cards[index], ...card })) };
+        return {
+          ...structuredClone(defaultContent),
+          ...parsed,
+          musicUrl: defaultContent.musicUrl || parsed.musicUrl || "",
+          musicTitle: defaultContent.musicUrl ? defaultContent.musicTitle : (parsed.musicTitle || ""),
+          cards: parsed.cards.map((card, index) => ({ ...defaultContent.cards[index], ...card }))
+        };
       } catch (error) {
         console.error("Could not load your saved monthsary page:", error);
         return structuredClone(defaultContent);
@@ -450,7 +457,7 @@
             $("musicTitle").textContent = "Tap ▶ to start the music";
           } else {
             console.error("Could not start the background music:", error);
-            $("musicTitle").textContent = "Couldn't start the song";
+            $("musicTitle").textContent = `Check song file: ${content.musicUrl}`;
           }
         }
       } catch (error) {
@@ -704,7 +711,7 @@
     });
     $("backgroundMusic").addEventListener("error", () => {
       $("musicToggle").disabled = true;
-      $("musicTitle").textContent = "Couldn't load the song file";
+      $("musicTitle").textContent = `Check song file: ${content.musicUrl}`;
     });
 
     renderPage();
