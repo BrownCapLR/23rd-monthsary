@@ -54,8 +54,6 @@
     }
     .customize-button:hover, .quiet-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgb(109 62 67 / 10%); }
     .customize-button { color: var(--rose-dark); }
-    .customize-button:disabled { cursor: not-allowed; opacity: .6; }
-    .customize-button:disabled:hover { transform: none; box-shadow: none; }
     .hero { padding: 35px 0 28px; text-align: center; }
     .eyebrow { margin: 0 0 14px; color: var(--rose-dark); font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
     h1 {
@@ -183,7 +181,7 @@
   <div class="page-shell">
     <header class="topbar">
       <div class="brand"><span class="brand-heart" aria-hidden="true">♡</span><span id="brandText">our little long distance love story</span></div>
-      <button class="customize-button" id="openEditor" type="button">✎ &nbsp; Lyka ♡ Lorence</button>
+      <button class="customize-button" id="openEditor" type="button">&nbsp; Lyka ♡ Lorence</button>
     </header>
 
     <main>
@@ -220,7 +218,7 @@
           <span class="music-label">A song for us</span>
           <span class="music-title" id="musicTitle">Our song</span>
         </div>
-        <audio id="backgroundMusic" loop preload="auto"></audio>
+        <audio id="backgroundMusic" autoplay loop preload="auto"></audio>
       </section>
     </main>
 
@@ -274,8 +272,8 @@
       title: "23 months of choosing you",
       subtitle: "A tiny scrapbook for my favorite person, filled with the moments and words I never want you to forget.",
       name: "my favorite person",
-      date: "A little celebration of us · 23 months",
-      signoff: "I love you so much, always",
+      date: "A little celebration of our 23rd monthsarry",
+      signoff: "I love you so much bing, always",
       theme: "rose",
       // Add your track at this path, or change this to its filename in media/.
       musicUrl: "media/our-song.mp3",
@@ -502,7 +500,7 @@
 
     function renderPage() {
       $("brandText").textContent = `our little love story`;
-      $("dateLine").textContent = content.date;
+      $("dateLine").textContent = `A little celebration of our 23rd monthsarry`;
       const title = content.title;
       const lastSpace = title.lastIndexOf(" ");
       $("pageTitle").replaceChildren(document.createTextNode(lastSpace > 0 ? `${title.slice(0, lastSpace)} ` : ""));
